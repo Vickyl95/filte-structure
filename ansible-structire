@@ -1,0 +1,19 @@
+ansible-project/
+│
+├── inventory.ini
+├── group_vars/
+│   └── webservers.yml
+├── playbook.yml
+│
+└── roles/
+    └── webserver/
+        ├── tasks/
+        │   └── main.yml
+        ├── handlers/
+        │   └── main.yml
+        ├── templates/
+        ├── files/
+        ├── vars/
+        │   └── main.yml
+        └── defaults/
+            └── main.yml
