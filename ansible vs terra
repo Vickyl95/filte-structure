@@ -1,0 +1,12 @@
+        TERRAFORM                         ANSIBLE
+
+     ROOT MODULE                         PLAYBOOK
+          │                                  │
+          ▼                                  ▼
+    CHILD MODULE                            ROLE
+          │                                  │
+          ▼                                  ▼
+       RESOURCE                             TASK
+          │                                  │
+          ▼                                  ▼
+     Azure/AWS/GCP                    Ansible Module
