@@ -1,0 +1,12 @@
+terraform-project/
+│
+├── terraform.tfvars
+├── variables.tf
+├── main.tf
+├── outputs.tf
+│
+└── modules/
+    └── vm/
+        ├── variables.tf
+        ├── main.tf
+        └── outputs.tf
