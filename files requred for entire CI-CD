@@ -1,4 +1,28 @@
-                    DEVELOPER
+
+------files--------
+myapp/
+│
+├── src/
+├── pom.xml
+│
+├── Dockerfile
+├── .dockerignore
+│
+├── azure-pipelines.yml
+│
+└── helm/
+    └── myapp/
+        ├── Chart.yaml
+        ├── values.yaml
+        │
+        └── templates/
+            ├── deployment.yaml
+            ├── service.yaml
+            ├── ingress.yaml
+            ├── configmap.yaml
+            └── hpa.yaml
+----------------------------- flow---------
+                     DEVELOPER
                         │
                         │ git push
                         ▼
