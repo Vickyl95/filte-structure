@@ -1,0 +1,12 @@
+| Application          | Typical base image             | Dockerfile approach                         |
+| -------------------- | ------------------------------ | ------------------------------------------- |
+| Python               | `python`                       | Install packages → copy `.py` → run Python  |
+| Node.js              | `node`                         | Install npm packages → copy code → run Node |
+| Java                 | `eclipse-temurin` / `openjdk`  | Build `.jar` → run Java                     |
+| .NET                 | `dotnet/sdk` + `dotnet/aspnet` | Build → publish → run                       |
+| Go                   | `golang` + minimal runtime     | Compile binary → run binary                 |
+| PHP                  | `php`                          | Install extensions → copy PHP code          |
+| Nginx/static website | `nginx`                        | Copy HTML/CSS/JS                            |
+| Apache               | `httpd`                        | Copy website → run Apache                   |
+| C/C++                | compiler image                 | Compile binary → run binary                 |
+| React/Angular/Vue    | `node` + `nginx`               | Build frontend → serve with Nginx           |
