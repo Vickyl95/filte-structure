@@ -1,0 +1,75 @@
+                    DEVELOPER
+                        │
+                        │ git push
+                        ▼
+                  GIT REPOSITORY
+                        │
+                        ▼
+              azure-pipelines.yml
+                        │
+                        │
+              ┌─────────▼─────────┐
+              │        CI         │
+              │                   │
+              │ Maven/npm/pip     │
+              │       ↓           │
+              │ Build + Test      │
+              │       ↓           │
+              │ Dockerfile        │
+              │       ↓           │
+              │ Docker Build      │
+              └─────────┬─────────┘
+                        │
+                        ▼
+                 CONTAINER IMAGE
+                        │
+                        │ docker push
+                        ▼
+                       ACR
+                        │
+                        │
+              ┌─────────▼─────────┐
+              │        CD         │
+              │                   │
+              │ Kubernetes YAML   │
+              │       OR          │
+              │ Helm              │
+              └─────────┬─────────┘
+                        │
+                        ▼
+                       AKS
+                        │
+                   API Server
+                        │
+                     Kubelet
+                        │
+                   containerd
+                        │
+                    runc/crun
+                        │
+                        ▼
+                    Container
+                        │
+                        ▼
+                   Application
+
+
+------CI vs CD files-------
+
+
+| File                  | Layer       | Purpose                  |
+| --------------------- | ----------- | ------------------------ |
+| `pom.xml`             | Application | Maven dependencies/build |
+| `package.json`        | Application | npm dependencies/build   |
+| `Dockerfile`          | Container   | Build image              |
+| `.dockerignore`       | Container   | Exclude files from build |
+| `azure-pipelines.yml` | CI/CD       | Automate pipeline        |
+| `deployment.yaml`     | Kubernetes  | Run/manage Pods          |
+| `service.yaml`        | Kubernetes  | Network access           |
+| `configmap.yaml`      | Kubernetes  | Non-secret configuration |
+| `secret.yaml`         | Kubernetes  | Secret configuration     |
+| `ingress.yaml`        | Kubernetes  | HTTP/HTTPS routing       |
+| `hpa.yaml`            | Kubernetes  | Autoscaling              |
+| `Chart.yaml`          | Helm        | Chart definition         |
+| `values.yaml`         | Helm        | Configuration values     |
+
