@@ -1,0 +1,29 @@
+Source Code
+    ↓
+Dockerfile / Containerfile
+    ↓
+Docker / BuildKit / Podman / Buildah
+    ↓
+Image
+    ↓
+ACR
+    ↓
+Kubernetes YAML
+    ↓
+API Server
+    ↓
+Scheduler
+    ↓
+Kubelet
+    ↓
+containerd
+    ↓
+runc / crun
+    ↓
+Linux Kernel
+    ↓
+Pod
+    ↓
+Container
+    ↓
+Application
