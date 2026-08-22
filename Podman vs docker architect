@@ -1,0 +1,43 @@
+----------Docker architect---
+
+Source Code
+    ↓
+Dockerfile
+    ↓
+Docker BuildKit
+    ↓
+Image
+    ↓
+docker run
+    ↓
+dockerd
+    ↓
+containerd
+    ↓
+runc
+    ↓
+Linux Kernel
+    ↓
+Container
+
+
+
+
+-----------------Pod-man architect----
+Source Code
+    ↓
+Containerfile / Dockerfile
+    ↓
+Podman / Buildah
+    ↓
+Image
+    ↓
+podman run
+    ↓
+Podman
+    ↓
+runc / crun
+    ↓
+Linux Kernel
+    ↓
+Container
