@@ -41,4 +41,17 @@
 | **Maven Java**           | Maven                                 | Build Java application                                                  |
 | **Jenkins**              | Jenkinsfile + application build tool  | CI/CD, not application compiler                                         |
 | **Terraform**            | Terraform CLI                         | Not application compilation; IaC                                        |
-| **Ansible**              | `ansible-playbook`                    | Not application compilation; automation                                 |
+| **Ansible**              | `ansible-playbook`                    | Not application compilation; automation    
+
+
+------The most important ones for DevOps-----
+
+  Java       → Maven / Gradle
+Node.js    → npm / yarn / pnpm
+Python     → pip / Poetry / uv
+.NET       → dotnet / MSBuild
+Go         → go build
+C/C++      → GCC/Clang + CMake
+Rust       → Cargo
+PHP        → Composer
+Ruby       → Bundler
