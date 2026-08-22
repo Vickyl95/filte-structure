@@ -1,0 +1,62 @@
+end to end flow of application to kubernetic 
+
+                  DEVELOPER
+                      │
+                      ▼
+                Source Code
+                      │
+                      ▼
+              Compile / Package
+                      │
+                      ▼
+             Application Artifact
+                      │
+                      ▼
+          Dockerfile / Containerfile
+                      │
+                      ▼
+            Docker / BuildKit
+             OR Podman/Buildah
+                      │
+                      ▼
+              CONTAINER IMAGE
+                      │
+                      ▼
+                    ACR
+                      │
+                 Image stored
+                      │
+                      │ Pull
+                      ▼
+            ┌──────────────────┐
+            │  Kubernetes      │
+            │  Control Plane   │
+            └────────┬─────────┘
+                     │
+                  Scheduler
+                     │
+                     ▼
+             Kubernetes Worker
+                     │
+                   Kubelet
+                     │
+                    CRI
+                     │
+                     ▼
+                 containerd
+                     │
+                     ▼
+                 runc / crun
+                     │
+                     ▼
+                Linux Kernel
+                     │
+                     ▼
+                    Pod
+                     │
+              ┌──────┴──────┐
+              ▼             ▼
+          Container      Container
+              │
+              ▼
+        Application
