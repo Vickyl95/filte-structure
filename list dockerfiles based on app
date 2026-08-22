@@ -10,3 +10,35 @@
 | Apache               | `httpd`                        | Copy website → run Apache                   |
 | C/C++                | compiler image                 | Compile binary → run binary                 |
 | React/Angular/Vue    | `node` + `nginx`               | Build frontend → serve with Nginx           |
+
+
+
+
+----------Application → Build / Package Tool------------
+
+| Application / Language   | Common build/package tool             | Main purpose                                                            |
+| ------------------------ | ------------------------------------- | ----------------------------------------------------------------------- |
+| **Java**                 | Maven / Gradle                        | Compile, dependency management, package `.jar`/`.war`                   |
+| **JavaScript / Node.js** | npm / yarn / pnpm                     | Install dependencies, build, package                                    |
+| **TypeScript**           | npm + `tsc`                           | Compile TypeScript → JavaScript                                         |
+| **Python**               | pip / Poetry / uv                     | Dependencies + packaging; Python usually doesn't need compilation       |
+| **C# / .NET**            | `dotnet CLI` / MSBuild                | Compile, test, publish                                                  |
+| **C**                    | GCC / Clang + Make/CMake              | Compile and build binary                                                |
+| **C++**                  | GCC / Clang + CMake / Make            | Compile and build binary                                                |
+| **Go**                   | `go build`                            | Compile → binary                                                        |
+| **Rust**                 | Cargo                                 | Compile, dependencies, package                                          |
+| **PHP**                  | Composer                              | Dependency management/package; PHP usually isn't compiled traditionally |
+| **Ruby**                 | Bundler / RubyGems                    | Dependencies/package                                                    |
+| **Kotlin**               | Gradle                                | Compile/package                                                         |
+| **Scala**                | sbt / Maven / Gradle                  | Compile/package                                                         |
+| **Swift**                | Swift Package Manager / `swift build` | Compile/package                                                         |
+| **Dart**                 | `dart` / Flutter                      | Build/package                                                           |
+| **Flutter**              | Flutter CLI                           | Build Android/iOS/Web/Desktop                                           |
+| **Android Java/Kotlin**  | Gradle                                | Build APK/AAB                                                           |
+| **React**                | npm/yarn/pnpm + Vite/Webpack/etc.     | Build frontend                                                          |
+| **Angular**              | Angular CLI + npm                     | Build frontend                                                          |
+| **Vue**                  | npm/yarn/pnpm + Vite                  | Build frontend                                                          |
+| **Maven Java**           | Maven                                 | Build Java application                                                  |
+| **Jenkins**              | Jenkinsfile + application build tool  | CI/CD, not application compiler                                         |
+| **Terraform**            | Terraform CLI                         | Not application compilation; IaC                                        |
+| **Ansible**              | `ansible-playbook`                    | Not application compilation; automation                                 |
