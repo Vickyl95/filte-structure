@@ -1,0 +1,23 @@
+Devops cmd 
+
+-----------------------GIT -------------------
+
+| Command                   | What it does                                   | Small difference                                 |
+| ------------------------- | ---------------------------------------------- | ------------------------------------------------ |
+| `git clone <URL>`         | Downloads a repo for the first time            | Creates a **new local copy**                     |
+| `git status`              | Shows current changes/state                    | **Only checks**, doesn't change anything         |
+| `git branch`              | Shows local branches                           | Tells you which branch you're on                 |
+| `git switch main`         | Switches branch                                | Moves between branches                           |
+| `git pull origin main`    | Gets latest changes from Azure and merges them | **Download + merge**                             |
+| `git fetch origin`        | Gets latest information from Azure             | **Download only**, doesn't merge                 |
+| `git diff`                | Shows changes in modified files                | Compares **working files vs local commit**       |
+| `git diff origin/main`    | Compares local files with remote branch        | Shows differences against Azure's `main`         |
+| `git add .`               | Stages changes                                 | Prepares changes for commit                      |
+| `git restore --staged .`  | Unstages changes                               | Removes changes from staging, keeps file changes |
+| `git restore .`           | Discards local unstaged changes                | Restores files to last local commit              |
+| `git commit -m "message"` | Creates a local commit                         | Saves changes **locally**                        |
+| `git push origin main`    | Uploads commits to Azure                       | **Local → Azure**                                |
+| `git log --oneline`       | Shows commit history                           | View previous commits                            |
+| `git revert HEAD`         | Creates a commit that reverses last commit     | Safely **undoes a pushed commit**                |
+| `git reset --hard HEAD~1` | Removes last local commit and changes          | Dangerous if already pushed                      |
+| `git remote -v`           | Shows Azure Repo URL                           | Checks where `origin` points                     |
