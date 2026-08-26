@@ -1,0 +1,84 @@
+Kubernetes concepts
+Kubernetes Architecture
+Control Plane
+Worker Nodes
+API Server
+Scheduler
+Controller Manager
+etcd
+kubelet
+kube-proxy
+Container Runtime
+containerd
+CRI-O
+Kubernetes Objects
+Pods
+ReplicaSets
+Deployments
+DaemonSets
+StatefulSets
+Jobs
+CronJobs
+Pod Management
+Pod Lifecycle
+Init Containers
+Sidecar Containers
+Multi-container Pods
+Restart Policies
+Pod Scheduling
+Pod Priority
+Node Affinity
+Pod Affinity
+Anti-Affinity
+Taints & Tolerations
+Networking
+ClusterIP
+NodePort
+LoadBalancer
+ExternalName
+Headless Services
+DNS
+CoreDNS
+Service Discovery - optional
+Ingress
+Ingress Controller
+NGINX Ingress
+Ingress
+Path-based Routing - optional
+Host-based Routing - optional
+TLS - optional
+Network Policies
+Allow/Deny traffic
+Namespace isolation
+CNI Plugins
+Calico
+Flannel - optional
+Cilium - optional
+
+Storage
+Persistent Storage
+Persistent Volume
+Persistent Volume Claim
+Storage Classes
+Dynamic Provisioning
+CSI Drivers
+just go through based on Azure
+Security
+RBAC
+Roles
+ClusterRoles
+RoleBindings
+ClusterRoleBindings
+Service Accounts
+Scaling
+Horizontal Pod Autoscaler
+Vertical Pod Autoscaler
+Cluster Autoscaler
+Metrics Server
+Resource Requests
+Resource Limits
+Deployment Strategies
+Rolling Update
+Recreate
+Rollback
+Revision History
