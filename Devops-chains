@@ -1,0 +1,81 @@
+# 🚀 DevOps: Code to Live — Complete Guide
+
+A practical end-to-end guide to understanding how software moves from **business requirement → development → Git → CI/CD → Docker → ACR → AKS → Production → Monitoring → Rollback**.
+
+---
+
+# 📚 Table of Contents
+
+1. [DevOps Lifecycle](#-devops-lifecycle)
+2. [Agile and Sprint](#1--agile-and-sprint)
+3. [Branching Strategy](#2--branching-strategy)
+4. [Git](#3--git)
+5. [Pull Request and Code Review](#4--pull-request-and-code-review)
+6. [CI - Continuous Integration](#5--ci---continuous-integration)
+7. [Docker](#6--docker-containerization)
+8. [Azure Container Registry](#7--azure-container-registry-acr)
+9. [CD - Continuous Deployment](#8--cd---continuous-deployment)
+10. [Infrastructure as Code](#9--infrastructure-as-code)
+11. [Kubernetes / AKS](#10--kubernetes--aks)
+12. [Deployment Strategies](#11--deployment-strategies)
+13. [Security / DevSecOps](#12--security--devsecops)
+14. [Monitoring and Observability](#13--monitoring-and-observability)
+15. [Incident Management and Rollback](#14--incident-management-and-rollback)
+16. [Git Flow + Rolling Deployment](#15--git-flow--rolling-deployment)
+17. [Hotfix + Cherry-Pick](#16--hotfix--cherry-pick)
+18. [DevOps Skill Priority](#17--devops-skill-priority)
+19. [Complete End-to-End Flow](#18--complete-end-to-end-flow)
+20. [Interview Answer](#19--interview-ready-answer)
+
+---
+
+# 🔄 DevOps Lifecycle
+
+The complete software delivery lifecycle:
+
+```text
+Requirement
+     ↓
+Sprint Planning
+     ↓
+Azure Boards / Jira
+     ↓
+Developer Code
+     ↓
+Branching Strategy
+     ↓
+Git / Azure Repos
+     ↓
+Pull Request
+     ↓
+Code Review
+     ↓
+CI Pipeline
+     ↓
+Build + Test + Security Scan
+     ↓
+Docker Build
+     ↓
+Azure Container Registry (ACR)
+     ↓
+CD Pipeline
+     ↓
+DEV
+     ↓
+QA
+     ↓
+UAT
+     ↓
+Production Approval
+     ↓
+AKS
+     ↓
+Deployment Strategy
+     ↓
+Rolling Deployment
+     ↓
+Live Users
+     ↓
+Monitoring
+     ↓
+Incident / Rollback
