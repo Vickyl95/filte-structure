@@ -82,3 +82,25 @@ Rolling Update
 Recreate
 Rollback
 Revision History
+
+
+
+
+
+                    kubectl
+                       |
+                       v
+                  API Server
+                       |
+          +------------+------------+
+          |            |            |
+         etcd      Scheduler   Controllers
+                                    |
+                                    v
+                              Worker Nodes
+                                    |
+                      +-------------+-------------+
+                      |             |             |
+                   kubelet     kube-proxy     containerd
+                      |                           |
+                      +---------> Pods <----------+
