@@ -105,7 +105,7 @@ Revision History
                       |                           |
                       +---------> Pods <----------+
 
-
+----------------logical-hierarchy-----------
 
 Kubernetes Cluster
 │
@@ -132,3 +132,27 @@ Kubernetes Cluster
             │
             └── Pod: nginx-cc9466c98-ddf5v
                 └── Container: nginx
+
+
+-------- structural hierarchy---
+Kubernetes Cluster
+│
+├── Control Plane
+│   │
+│   ├── API Server
+│   ├── Scheduler
+│   ├── Controller Manager
+│   │      │
+│   │      ├── Deployment Controller
+│   │      └── ReplicaSet Controller
+│   │
+│   └── etcd
+│          │
+│          ├── Deployment information
+│          ├── ReplicaSet information
+│          ├── Pod information
+│          └── Other Kubernetes objects
+│
+└── Worker Nodes
+       │
+       └── Pods / Containers
