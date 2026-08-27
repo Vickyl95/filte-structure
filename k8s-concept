@@ -104,3 +104,31 @@ Revision History
                    kubelet     kube-proxy     containerd
                       |                           |
                       +---------> Pods <----------+
+
+
+
+Kubernetes Cluster
+│
+├── Namespace: default
+│   │
+│   └── Deployment: demo-app
+│       │
+│       └── ReplicaSet: demo-app-64f97f5654
+│           │
+│           ├── Pod: demo-app-64f97f5654-ckh8m
+│           │   └── Container: demo-app
+│           │
+│           └── Pod: demo-app-64f97f5654-xnjfx
+│               └── Container: demo-app
+│
+└── Namespace: app-routing-system
+    │
+    └── Deployment: nginx
+        │
+        └── ReplicaSet: nginx-cc9466c98
+            │
+            ├── Pod: nginx-cc9466c98-57rwc
+            │   └── Container: nginx
+            │
+            └── Pod: nginx-cc9466c98-ddf5v
+                └── Container: nginx
