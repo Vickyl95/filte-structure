@@ -84,7 +84,12 @@ Rollback
 Revision History
 
 
-
+CONTROL PLANE                 WORKER NODE
+──────────────                ───────────
+API Server                    kubelet
+Scheduler                     kube-proxy
+Controller Manager            containerd/CRI-O
+etcd                          Pods
 
 
                     kubectl
