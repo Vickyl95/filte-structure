@@ -1,0 +1,62 @@
+  	                  DEVSECOPS
+                        │
+        ┌───────────────┼────────────────┐
+        │               │                │
+   Code Security   Infrastructure    Network Security
+        │               │                │
+   SonarQube         Checkov        Azure Firewall
+   Gitleaks          Terraform      Palo Alto
+   Trivy             AKS            NSG
+        │               │                │
+        └───────────────┼────────────────┘
+                        │
+                       AKS
+
+
+| Security                    | What it protects                 |
+| --------------------------- | -------------------------------- |
+| **Code Security**           | Application source code          |
+| **IaC Security**            | Terraform/infrastructure code    |
+| **Infrastructure Security** | Actual Azure resources           |
+| **Network Security**        | Network traffic and connectivity |
+
+
+
+1. Developer writes code
+          ↓
+2. Git repository
+          ↓
+3. Source Code Security
+   └── SAST → SonarQube / Semgrep
+          ↓
+4. Dependency Security
+   └── SCA → Dependency-Check
+          ↓
+5. Secret Security
+   └── Gitleaks
+          ↓
+6. Terraform Security
+   └── Checkov
+          ↓
+7. Docker Security
+   └── Trivy
+          ↓
+8. Container Registry
+   └── ACR
+          ↓
+9. Kubernetes / AKS Security
+   ├── RBAC
+   ├── NetworkPolicy
+   ├── Pod Security
+   └── Kubescape
+          ↓
+10. Application Security
+    └── DAST → OWASP ZAP
+          ↓
+11. Cloud Security
+    ├── Defender for Cloud
+    ├── Key Vault
+    └── Managed Identity
+          ↓
+12. Monitoring
+    └── Azure Monitor / Sentinel
