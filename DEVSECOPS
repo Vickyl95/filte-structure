@@ -60,3 +60,16 @@
           ↓
 12. Monitoring
     └── Azure Monitor / Sentinel
+
+
+
+| Tool                | SAST | DAST | Common use                      |
+| ------------------- | :--: | :--: | ------------------------------- |
+| **SonarQube**       |   ✅  |   ❌  | Source-code quality + security  |
+| **Checkmarx**       |   ✅  |   ✅  | Enterprise application security |
+| **Fortify**         |   ✅  |   ✅  | Enterprise SAST/DAST            |
+| **Veracode**        |   ✅  |   ✅  | Application security platform   |
+| **GitLab Security** |   ✅  |   ✅  | CI/CD integrated security       |
+| **OWASP ZAP**       |   ❌  |   ✅  | Web application DAST            |
+| **Burp Suite**      |   ❌  |   ✅  | Web/API security testing        |
+| **Semgrep**         |   ✅  |   ❌  | Fast code/security scanning     |
