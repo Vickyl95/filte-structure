@@ -1,0 +1,68 @@
+Pipeline Trigger
+      │
+      ▼
+Validate trigger permissions
+      │
+      ▼
+Sparse checkout microservice repository
+      │
+      ▼
+Checkout DevOps/Helm template repository
+      │
+      ▼
+PR validations
+  ├─ PR validation
+  ├─ Work item validation
+  └─ Test-case retrieval
+      │
+      ▼
+Install prerequisites
+  ├─ libgdiplus
+  ├─ Mono
+  ├─ .NET SDK 2.0.3
+  ├─ .NET SDK 2.1.x
+  ├─ .NET SDK 6.0.202
+  ├─ .NET SDK 8.0.100
+  └─ .NET SDK 10.0.101
+      │
+      ▼
+NuGet authentication + restore
+      │
+      ▼
+SonarQube preparation
+      │
+      ▼
+.NET Build
+      │
+      ▼
+.NET Test + Code Coverage
+      │
+      ▼
+SonarQube Analyze
+      │
+      ▼
+SonarQube Quality Gate
+      │
+      ▼
+Generate Code Coverage Report
+      │
+      ▼
+Modify Helm deployment templates
+      │
+      ▼
+Token replacement
+      │
+      ▼
+Package Helm/config artifacts
+      │
+      ▼
+Publish Build Artifact
+      │
+      ▼
+Docker Build
+      │
+      ▼
+Push Docker Image → Azure Container Registry
+      │
+      ▼
+Git Tag
