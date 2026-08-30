@@ -1,0 +1,13 @@
+
+Question 1 (Warm-up / Walkthrough):
+Walk me through the CI/CD pipeline you designed at CloudIQ for the Global Petcare Enterprise client — from code commit to production deployment on AKS. What did the YAML pipeline actually look like stage by stage, and where did approvals/gates sit?
+
+Follow-up 1: You said you converted multiple YAML files into a single pipeline to improve readability and modularity — that sounds slightly contradictory. Usually "modularity" in YAML pipelines is achieved by splitting logic into templates (template.yml with parameters) rather than merging into one file. Can you clarify — did you consolidate the number of pipelines (e.g., went from separate build pipelines per service to one templated pipeline reused across 53+ services), or did you literally merge YAML files into one big file?
+
+ ai and my ans (corrected): Now say something like: "I broke down a single monolithic YAML pipeline into multiple reusable templates — for example, separate templates for compile, scan, build-and-push, and Helm packaging — parameterized so all 53+ services could consume the same templates instead of duplicating logic." That's a strong, resume-worthy answer. Always lead with the design decision, then the reason (reusability/maintainability), then the scale (53+ pipelines).
+
+Follow-up 2: You mentioned the build stage does compile → scan → build → push to ACR → package Helm chart. Where exactly does SonarQube sit in that sequence, and is the pipeline configured to fail the build on quality gate failure, or just report findings? What was your quality gate threshold (e.g., blocker/critical bugs, coverage %)?
+
+            
+
+Follow-up 3: On self-hosted agents — why self-hosted over Microsoft-hosted agents here? Was it purely for pre-installed tooling/speed, or were there network/compliance reasons (e.g., agents needing to sit inside a VNet to reach private endpoints/ACR)?
