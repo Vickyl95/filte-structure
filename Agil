@@ -1,0 +1,13 @@
+Organization
+   │
+   └── Project
+        │
+        └── Area Path
+             │
+             └── Epic
+                  │
+                  └── Feature
+                       │
+                       └── User Story / PBI
+                            │
+                            └── Task
