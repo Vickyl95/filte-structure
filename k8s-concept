@@ -84,6 +84,100 @@ Rollback
 Revision History
 
 
+
+KUBERNETES / AKS
+│
+├── 1. Fundamentals
+│   ├── Kubernetes Concepts
+│   ├── Architecture
+│   ├── Objects
+│   └── Namespaces
+│
+├── 2. Architecture
+│   ├── Control Plane
+│   ├── API Server
+│   ├── Scheduler
+│   ├── Controller Manager
+│   ├── etcd
+│   └── Worker Nodes
+│       ├── kubelet
+│       ├── kube-proxy
+│       └── containerd
+│
+├── 3. Workloads
+│   ├── Pods
+│   ├── ReplicaSets
+│   ├── Deployments
+│   ├── DaemonSets
+│   ├── StatefulSets
+│   ├── Jobs
+│   └── CronJobs
+│
+├── 4. Scheduling
+│   ├── Requests & Limits
+│   ├── Node Affinity
+│   ├── Pod Affinity
+│   ├── Anti-Affinity
+│   ├── Taints
+│   ├── Tolerations
+│   └── Pod Priority
+│
+├── 5. Networking
+│   ├── ClusterIP
+│   ├── NodePort
+│   ├── LoadBalancer
+│   ├── Headless Service
+│   ├── CoreDNS
+│   ├── Ingress
+│   ├── Ingress Controller
+│   ├── Network Policies
+│   └── Azure CNI
+│
+├── 6. Storage
+│   ├── PV
+│   ├── PVC
+│   ├── StorageClass
+│   ├── Dynamic Provisioning
+│   ├── CSI
+│   ├── Azure Disk
+│   └── Azure Files
+│
+├── 7. Security
+│   ├── RBAC
+│   ├── Service Accounts
+│   ├── Managed Identity
+│   ├── Workload Identity
+│   ├── Key Vault
+│   └── Network Policies
+│
+├── 8. Scaling
+│   ├── HPA
+│   ├── VPA
+│   ├── Cluster Autoscaler
+│   ├── Metrics Server
+│   └── Requests & Limits
+│
+├── 9. Deployment
+│   ├── Rolling Update
+│   ├── Recreate
+│   ├── Rollback
+│   ├── Revision History
+│   ├── Blue-Green
+│   └── Canary
+│
+└── 10. AKS
+    ├── AKS Architecture
+    ├── Node Pools
+    ├── Private AKS
+    ├── ACR
+    ├── Azure Networking
+    ├── Azure Monitor
+    ├── Key Vault
+    ├── Managed Identity
+    ├── Workload Identity
+    └── Azure DevOps CI/CD
+
+
 CONTROL PLANE                 WORKER NODE
 ──────────────                ───────────
 API Server                    kubelet
