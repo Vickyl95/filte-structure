@@ -255,3 +255,19 @@ Kubernetes Cluster
 └── Worker Nodes
        │
        └── Pods / Containers
+
+
+----------------igress or external network--------------
+
+                 INTERNET
+                    │
+        ┌───────────┼────────────┐
+        │           │            │
+        ▼           ▼            ▼
+   LoadBalancer   Ingress      NodePort
+        │        Controller       │
+        ▼           │             ▼
+     Service        ▼          Service
+        │        Service          │
+        ▼           ▼             ▼
+       Pods        Pods           Pods
