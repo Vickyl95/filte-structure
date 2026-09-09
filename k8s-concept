@@ -291,3 +291,490 @@ Kubernetes Cluster
 │   └──────────────────────────────┘           │
 │                                              │
 └──────────────────────────────────────────────┘
+
+
+
+
+
+
+# AKS Networking — Azure CNI vs Calico vs Istio
+
+## 1. Complete AKS Networking Picture
+
+```text
+                         INTERNET
+                            |
+                            v
+                  Azure Load Balancer
+                            |
+                            v
+                     Ingress Controller
+                            |
+                    frontend Service
+                            |
+                       kube-proxy
+                            |
+                            v
+                  +------------------+
+                  | Frontend Pod     |
+                  | 10.10.1.10       |
+                  +------------------+
+                            |
+                            | HTTP request
+                            v
+                  backend Service
+                  10.10.20.100:80
+                            |
+                       kube-proxy
+                            |
+                            v
+                  +------------------+
+                  | Backend Pod      |
+                  | 10.10.2.20       |
+                  +------------------+
+```
+
+---
+
+## 2. CoreDNS
+
+Suppose the application uses:
+
+```text
+http://backend-service:8080
+```
+
+The Pod doesn't know the IP address of `backend-service`.
+
+It asks DNS:
+
+```text
+Frontend Pod
+     |
+     | "What is backend-service?"
+     v
+   CoreDNS
+     |
+     | 10.10.20.100
+     v
+Frontend Pod
+```
+
+### CoreDNS responsibility
+
+> **CoreDNS = Service name → Service IP/name resolution**
+
+CoreDNS does **not** send the actual application traffic to the backend.
+
+---
+
+## 3. kube-proxy
+
+After DNS resolution, the frontend knows:
+
+```text
+backend-service = 10.10.20.100
+```
+
+The application sends:
+
+```text
+Frontend Pod
+      |
+      | destination: 10.10.20.100:8080
+      v
+backend Service
+```
+
+The Service IP is a **virtual IP**.
+
+`kube-proxy` programs the node networking rules so traffic can be redirected/load-balanced to an actual backend Pod.
+
+```text
+                 Service
+              10.10.20.100
+                    |
+              kube-proxy rules
+                    |
+             +------+------+
+             |             |
+         Backend Pod    Backend Pod
+         10.10.2.20     10.10.3.25
+```
+
+### kube-proxy responsibility
+
+> **kube-proxy = Service IP → Backend Pod**
+
+---
+
+## 4. Azure CNI
+
+Azure CNI is responsible for the underlying **Pod networking**.
+
+Example:
+
+```text
+Node 1
+  |
+  +-- Frontend Pod
+       IP: 10.10.1.10
+
+Node 2
+  |
+  +-- Backend Pod
+       IP: 10.10.2.20
+```
+
+Conceptually:
+
+```text
+Frontend Pod
+10.10.1.10
+     |
+     | Azure CNI
+     |
+Azure VNet
+     |
+     | Azure networking
+     |
+Backend Pod
+10.10.2.20
+```
+
+With **Azure CNI Overlay**, the exact IP architecture is different, but the important concept is:
+
+> **CNI provides the underlying Pod networking.**
+
+---
+
+## 5. Calico
+
+Calico can provide **network policy enforcement** and, depending on the AKS configuration, networking functionality.
+
+For example:
+
+```text
+Frontend
+   |
+   | ALLOW
+   v
+Backend
+```
+
+But:
+
+```text
+Frontend
+   |
+   | DENY
+   X
+Database
+```
+
+You can define a Kubernetes `NetworkPolicy`:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: frontend
+```
+
+This means:
+
+```text
+Frontend Pod
+     |
+     | ALLOW
+     v
+Backend Pod
+
+Other Pod
+     |
+     | DENY
+     X
+Backend Pod
+```
+
+### Calico responsibility
+
+> **Calico = Network connectivity/policy, depending on configuration**
+
+In AKS, the exact Calico role depends on the selected networking and network-policy configuration.
+
+---
+
+## 6. Istio
+
+Istio is a **service mesh**.
+
+It operates at the **application/service communication layer**.
+
+Example:
+
+```text
+Frontend Pod
+     |
+     v
++-------------+
+| Envoy Proxy |
++-------------+
+     |
+     | mTLS / HTTP
+     | Retry
+     | Timeout
+     | Traffic routing
+     v
++-------------+
+| Envoy Proxy |
++-------------+
+     |
+     v
+Backend Pod
+```
+
+Istio can provide:
+
+* mTLS
+* Retries
+* Timeouts
+* Traffic routing
+* Traffic splitting
+* Circuit breaking
+* Authorization
+* Observability
+* Distributed tracing
+
+### Istio responsibility
+
+> **Istio = Application/service-to-service traffic management**
+
+---
+
+# 7. Complete Architecture
+
+```text
+                         USER
+                           |
+                           v
+                  Azure Load Balancer
+                           |
+                           v
+                    Ingress Gateway
+                           |
+                           v
+                    Frontend Service
+                           |
+                      kube-proxy
+                           |
+                           v
+              +-------------------------+
+              |      Frontend Pod       |
+              |                         |
+              | Application             |
+              |      |                  |
+              |      v                  |
+              |   Envoy Proxy           |
+              +----------+--------------+
+                         |
+                         | Service-to-service
+                         | traffic
+                         v
+              +-------------------------+
+              |       Backend Pod        |
+              |                          |
+              |   Envoy Proxy            |
+              |      |                   |
+              |      v                   |
+              |   Application            |
+              +--------------------------+
+
+          Underneath all of this:
+
+                 Azure CNI
+                    |
+                    v
+              Pod networking
+
+                 Calico
+                    |
+                    v
+          Network policy/security
+
+                 CoreDNS
+                    |
+                    v
+          Service name resolution
+```
+
+---
+
+# 8. What Happens During One Request?
+
+Suppose:
+
+```text
+frontend → backend:8080
+```
+
+## Step 1 — DNS Resolution
+
+Frontend asks:
+
+```text
+backend
+```
+
+CoreDNS responds with the Service IP:
+
+```text
+10.10.20.100
+```
+
+Therefore:
+
+```text
+CoreDNS
+   |
+   +---- backend → 10.10.20.100
+```
+
+---
+
+## Step 2 — Service
+
+Frontend sends traffic to:
+
+```text
+10.10.20.100:8080
+```
+
+This is the Kubernetes Service.
+
+---
+
+## Step 3 — kube-proxy
+
+`kube-proxy` uses its node networking rules to select a backend Pod.
+
+```text
+                 10.10.20.100
+                     |
+             kube-proxy rules
+                     |
+              +------+------+
+              |             |
+          Pod 10.10.2.20  Pod 10.10.3.25
+```
+
+---
+
+## Step 4 — CNI
+
+The underlying CNI networking provides connectivity from the source Pod/node to the destination Pod.
+
+```text
+Frontend Pod
+     |
+     | CNI networking
+     v
+Backend Pod
+```
+
+---
+
+## Step 5 — NetworkPolicy
+
+If network policies are configured, Calico/network-policy enforcement determines whether the traffic is allowed.
+
+```text
+ALLOW → Continue
+DENY  → DROP
+```
+
+---
+
+## Step 6 — Istio
+
+If Istio is enabled, the request passes through the Envoy proxies according to the Istio traffic architecture.
+
+Istio can then apply:
+
+```text
+mTLS
+Retry
+Timeout
+Traffic splitting
+Authorization
+Telemetry
+```
+
+---
+
+# 9. Interview Cheat Sheet
+
+Remember this:
+
+```text
+CoreDNS     → "Where is backend?"
+kube-proxy  → "Which backend Pod?"
+CNI         → "How do I reach that Pod?"
+Calico      → "Is this network traffic allowed?"
+Istio       → "How should this service communicate?"
+```
+
+### One-line interview answer
+
+> **CoreDNS resolves the Service name, kube-proxy handles Service-to-Pod forwarding, the CNI provides the underlying Pod networking, Calico can enforce network-level policies, and Istio manages application-level service-to-service traffic.**
+
+## Key Difference
+
+| Component      | Main responsibility                                                 | Layer               |
+| -------------- | ------------------------------------------------------------------- | ------------------- |
+| **CoreDNS**    | DNS resolution                                                      | DNS                 |
+| **kube-proxy** | Service → Pod forwarding                                            | Service/network     |
+| **Azure CNI**  | Pod networking                                                      | Network             |
+| **Calico**     | Network policy/security and, depending on configuration, networking | Network             |
+| **Istio**      | Service-to-service traffic management                               | Application/service |
+| **Envoy**      | Data-plane proxy used by Istio                                      | Application/service |
+
+### Easy mental model
+
+```text
+CoreDNS
+   ↓
+"Find the service"
+
+kube-proxy
+   ↓
+"Find/select the backend Pod"
+
+Azure CNI
+   ↓
+"Provide Pod network connectivity"
+
+Calico
+   ↓
+"Enforce network-level rules"
+
+Istio
+   ↓
+"Control how services communicate"
+```
+
+
+
+
+
+
+
