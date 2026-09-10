@@ -15,3 +15,539 @@ Docker                   ← Container
 Linux                    ← Container OS
        ↓
 AKS                      ← Kubernetes
+
+
+
+
+I’ll scan the repository’s project manifests and representative source folders, then map the languages, frameworks, build tooling, application types, and a practical architecture diagram. I’ll keep the inventory evidence-based and call out where the repo contains multiple independent apps.
+
+Map repository technology stack
+
+Searched for files matching `Repos-codes` · `Code/**/package.json`, 44 matches
+
+Searched for files matching `Repos-codes` · `Code/**/*.csproj`, 100 matches
+
+Searched for files matching `Repos-codes` · `Code/**/*.sln`, 100 matches
+
+Searched for files matching `Repos-codes` · `Code/**/Dockerfile`, 100 matches
+
+Read 
+
+Read 
+
+Searched for files matching `Repos-codes` · `Code/Voyager_UI/**/{package.json,pnpm-lock.yaml,yarn.lock,package-lock.json,nx.json,angular.json,tsconfig.json,README.md,Dockerfile,*.yml,*.yaml}`, 60 matches
+
+No matches found. Your search pattern might be excluded completely by either the search.exclude settings or .*ignore files.
+If you believe that it should have results, you can check into the .*ignore files and the exclude setting (here are some excluded patterns for reference:[**/node_modules,**/bower_components,**/*.code-search]).
+Then if you want to include those files you can call the tool again by setting "includeIgnoredFiles" to true.
+
+Read memory
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read , lines 1 to 220
+
+Read , lines 1 to 220
+
+Searched for files matching `Repos-codes` · `Code/**/*.csproj`, 120 matches
+
+Searched for files matching `Repos-codes` · `Code/**/*.{sln,slnx}`, 120 matches
+
+Searched for files matching `Repos-codes` · `Code/**/{Dockerfile,*.yml,*.yaml,Chart.yaml,values.yaml,*.tf}`, 200 matches
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Searched for files matching `Repos-codes` · `Code/ScheduleAndAppointment/**/*.csproj`, 35 matches
+
+Searched for files matching `Repos-codes` · `Code/ScheduleAndAppointment/**/{Dockerfile,*.yml,*.yaml}`, 23 matches
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read , lines 1 to 160
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+Read 
+
+The first pass confirms this is a large multi-application platform, not one single project: many .NET solutions and Dockerized services sit beside several Angular workspaces and a Java Kafka Connect component. I’m checking the exact manifests now so the final architecture distinguishes what is proven from what is only inferred.
+
+Read 
+
+Read , lines 1 to 160
+
+Read 
+
+Read , lines 1 to 180
+
+A small path correction surfaced: the shared UI’s root `package.json` is only a workspace wrapper, while the Angular dependencies live under its `apps` package. The appointment API is confirmed as an ASP.NET Core web project on .NET 10; I’m narrowing the remaining evidence to the actual UI package and Azure Function manifest before summarizing.
+
+Searched for files matching `Repos-codes` · `Code/ScheduleAndAppointment/**/*Appointments*csproj`, 5 matches
+
+Searched for files matching `Repos-codes` · `Code/**/host.json`, 20 matches
+
+Searched for files matching `Repos-codes` · `voyager-templates/**/*.yml`, 30 matches
+
+Read 
+
+Read 
+
+Read 
+
+Searched for files matching `Repos-codes` · `Code/**/*.sqlproj`, 24 matches
+
+Searched for files matching `Repos-codes` · `Code/**/pom.xml`, 1 match
+
+Searched for files matching `Repos-codes` · `Code/**/Chart.yaml`, 30 matches
+
+Read 
+
+Read 
+
+Read , lines 1 to 180
+
+## Repository Overview
+
+This is a large **veterinary healthcare platform** composed of many independently deployable applications and services. It is not one single application.
+
+The repository contains at least:
+
+- 797 `.csproj` files
+- 173 `.sln` solution files
+- 201 Dockerfiles
+- 44 `package.json` files
+- 24 SQL database projects
+- 32 Helm charts
+- 1 Java Maven project
+
+## Application Types
+
+### 1. Angular Web Applications
+
+Main UI projects include:
+
+- `Voyager_UI`
+- `Inventory_UI`
+- `Portal_UI`
+- `DigitalForms_UI`
+- `CodeCatalog_UI`
+- `Meeting_UI`
+
+The main Voyager UI is an Angular monorepo containing many business areas:
+
+- Schedule and Appointment
+- Medical Record
+- Pharmacy
+- Finance
+- Insurance
+- Visits
+- Orders
+- Dashboard
+- Client and Patient
+- Administration
+- Wellness Plans
+- Code Catalog
+
+Your current file, `phone.mock.js`, is a **JavaScript mock-data file** inside the Angular Schedule Appointment application. The main application is mostly TypeScript.
+
+### 2. ASP.NET Core Microservices
+
+Most backend services are C#/.NET microservices, organized by business domain:
+
+- `Admin`
+- `AppointmentWaitlist`
+- `Anesthesia`
+- `CarePlanner`
+- `Communication`
+- `Finance`
+- `Insurance`
+- `Inventory`
+- `MedicalRecord`
+- `OrderManagement`
+- `Pharmacy`
+- `ScheduleAndAppointment`
+- `UserAndStaff`
+- `WellnessPlans`
+- and others
+
+Typical service structure:
+
+```text
+API
+Business
+Common
+DataAccess
+Domain
+Infrastructure
+Tests
+```
+
+Example:
+
+`Voyager.ScheduleAppointmentOrchestration.API.csproj`
+
+This uses:
+
+- ASP.NET Core
+- .NET 10
+- AutoMapper
+- Serilog
+- Application Insights
+- Azure Key Vault
+- Health checks
+- Shared Voyager Core packages
+
+### 3. Azure Functions
+
+The repository contains event-driven and scheduled Azure Functions for:
+
+- Appointment reminders
+- Finance synchronization
+- Medical records
+- Diagnostic processing
+- Communication
+- Email, fax, text, and voice processing
+- Pharmacy processing
+- Reference data
+- Enterprise and operational-unit management
+
+Example:
+
+Voyager.Appointments.Function.csproj
+
+This uses:
+
+- Azure Functions v4
+- .NET 10 isolated worker model
+- Event Hub triggers
+- Service Bus triggers
+- Cosmos DB
+- Application Insights
+- Azure Key Vault
+
+### 4. Database Projects
+
+The repository contains SQL Server database projects using `.sqlproj` files.
+
+Examples:
+
+- `Voyager.Finance.SQL.sqlproj`
+- `Voyager.Inventory.SQL.sqlproj`
+- `Voyager.MedicalRecord.SQL.sqlproj`
+
+There are also Cosmos DB integrations and migrations.
+
+### 5. Java Kafka Connect Plugin
+
+The Kafka Connect Cosmos DB plugin is Java-based:
+
+[ `pom.xml` ](Code/AuditLogs/Kafka-Connect/PluginSourceCode/CosmosDB/pom.xml)
+
+It uses:
+
+- Java 8 source compatibility
+- Apache Maven
+- Apache Kafka Connect
+- Azure Cosmos DB Java SDK
+- JUnit
+- Mockito
+- SpotBugs
+
+### 6. Utilities and Migration Tools
+
+There are also:
+
+- Data migration tools
+- Database migration utilities
+- Role and permission automation
+- PDF generation
+- PDF viewing
+- Search indexing tools
+- Integration services
+- Kafka Connect services
+
+## Programming Languages
+
+| Language | Usage |
+|---|---|
+| C# | ASP.NET Core APIs, Azure Functions, business services, utilities |
+| TypeScript | Angular applications and frontend libraries |
+| JavaScript | Mock files, configuration, frontend utilities |
+| HTML | Angular templates and web pages |
+| SCSS/CSS | Frontend styling |
+| SQL | SQL Server database projects, tables, procedures, views |
+| Java | Kafka Connect Cosmos DB plugin |
+| YAML | Azure DevOps pipelines, Kubernetes, Helm configuration |
+| XML | .NET project files, configuration, pipeline templates |
+| PowerShell | DevOps automation and deployment scripts |
+| Bash | Docker and Linux build commands |
+
+## Frontend Framework and Tools
+
+The main frontend uses:
+
+- Angular 17
+- TypeScript 5.3
+- Angular CLI
+- RxJS
+- NgRx
+- Angular Material
+- Syncfusion Angular components
+- Okta authentication
+- SignalR
+- Statsig
+- Application Insights
+- Jest
+- ESLint
+- Prettier
+- SonarQube scanner
+- `ng-packagr` for Angular libraries
+
+Evidence:
+
+- apps/package.json
+- `angular.json`
+
+The Angular workspace contains two main applications:
+
+- `apps`
+- `cc-shell`
+
+It also contains reusable libraries such as:
+
+- `schedule-appointment-services`
+- `client-patient-services`
+- `order-services`
+- `visits-services`
+- `components`
+- `pattern-lib`
+- `utilities`
+
+## Backend Framework and Tools
+
+The backend uses:
+
+- ASP.NET Core
+- .NET 6, .NET 8, and .NET 10 across different services
+- Azure Functions v4
+- MSBuild
+- NuGet
+- Visual Studio solution/project structure
+- Docker
+- Serilog
+- AutoMapper
+- Application Insights
+- Azure Key Vault
+- Health checks
+- SonarLint and SonarQube
+
+Some older projects may use earlier .NET versions. The current Schedule Appointment examples target `.NET 10`.
+
+## Build and Test Tools
+
+### Frontend
+
+```text
+npm install
+npm run build
+npm run test
+npm run lint
+npm run testSnA
+npm run sonar
+```
+
+Frontend build configuration is in apps/package.json.
+
+### .NET Backend
+
+Typical tools:
+
+```text
+dotnet restore
+dotnet build
+dotnet test
+dotnet publish
+MSBuild
+NuGet
+```
+
+### Java
+
+```text
+mvn clean package
+```
+
+### Quality and Testing
+
+- Jest for Angular tests
+- JUnit and Mockito for Java tests
+- xUnit/NUnit/MSTest-style .NET test projects
+- ESLint
+- Prettier
+- SonarQube/SonarLint
+- SpotBugs for Java
+
+## Deployment Tools
+
+The deployment model uses:
+
+- Azure DevOps Pipelines
+- Docker
+- Nginx
+- Kubernetes
+- Helm
+- Azure Container-based deployments
+- Azure Functions deployment
+- Azure API Management templates
+- Azure Event Hub templates
+- Azure Cosmos DB templates
+- Azure database templates
+
+The main UI is compiled into static files and served by Nginx using:
+
+Voyager_UI Dockerfile
+
+The backend services use Helm charts, for example:
+
+ServiceTemplate Chart.yaml
+
+The shared DevOps templates are stored in `voyager-templates`.
+
+## Main Architecture
+
+```mermaid
+flowchart TD
+    User[Veterinary Staff or Clinic User]
+
+    UI[Angular Voyager UI]
+    Shell[Angular CC Shell]
+    Libs[Shared Angular Libraries]
+
+    API[ASP.NET Core APIs]
+    Orch[Domain Orchestration Services]
+    Func[Azure Functions]
+    SignalR[SignalR Services]
+
+    SQL[(SQL Server Databases)]
+    Cosmos[(Azure Cosmos DB)]
+    Search[(Azure Search)]
+    EventHub[Azure Event Hubs]
+    ServiceBus[Azure Service Bus]
+    Kafka[Kafka / Kafka Connect]
+
+    KeyVault[Azure Key Vault]
+    AppInsights[Application Insights]
+
+    Docker[Docker Images]
+    Helm[Helm Charts]
+    K8s[Kubernetes]
+    Pipeline[Azure DevOps Pipelines]
+
+    User --> UI
+    User --> Shell
+
+    UI --> Libs
+    Shell --> Libs
+
+    UI --> API
+    UI --> SignalR
+
+    API --> Orch
+    Orch --> SQL
+    Orch --> Cosmos
+    Orch --> Search
+
+    API --> EventHub
+    API --> ServiceBus
+
+    EventHub --> Func
+    ServiceBus --> Func
+    Kafka --> Func
+    Kafka --> Cosmos
+
+    API --> KeyVault
+    Func --> KeyVault
+
+    API --> AppInsights
+    Func --> AppInsights
+
+    Pipeline --> Docker
+    Docker --> Helm
+    Helm --> K8s
+```
+
+## Architectural Style
+
+The overall architecture is:
+
+- **Domain-oriented microservices**
+- **Angular frontend monorepo**
+- **Layered backend services**
+- **Event-driven processing**
+- **Serverless Azure Functions**
+- **Containerized deployment**
+- **Kubernetes and Helm orchestration**
+- **Shared platform/common libraries**
+- **Separate database projects per domain**
+
+For Schedule Appointment specifically:
+
+```text
+Angular Schedule Appointment UI
+        |
+        v
+Schedule Appointment service libraries
+        |
+        v
+Schedule Appointment APIs
+        |
+        v
+Business and Data Access layers
+        |
+        +--> SQL Server
+        +--> Cosmos DB
+        +--> Event Hub
+        +--> Service Bus
+        +--> Azure Functions for reminders
+```
+
+The repository’s README is mostly a template and does not document the actual system. The manifests and project files provide the more reliable technology information.
