@@ -1,0 +1,17 @@
+C#                       ← Programming language
+       ↓
+.NET 8                   ← Platform / runtime
+       ↓
+ASP.NET Core             ← Web framework
+       ↓
+Web API                  ← REST API application
+       ↓
+MediatR                  ← CQRS/mediator library
+       ↓
+Swagger                  ← API documentation
+       ↓
+Docker                   ← Container
+       ↓
+Linux                    ← Container OS
+       ↓
+AKS                      ← Kubernetes
